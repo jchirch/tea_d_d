@@ -17,8 +17,6 @@ const getRandomImage = () => {
   return teaPix[randomIndex];
 };
 
-
-
 function SubscriptionDetailsPage() {
   const { id } = useParams()
   const [subDetails, setSubDetails] = useState(null);
@@ -28,6 +26,9 @@ function SubscriptionDetailsPage() {
       `http://127.0.0.1:3000/api/v1/subscriptions/${id}`,
       {
         method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ activestatus: true }),
       }
     )
@@ -43,6 +44,9 @@ function SubscriptionDetailsPage() {
       `http://127.0.0.1:3000/api/v1/subscriptions/${id}`,
       {
         method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ activestatus: false }),
       }
     )
@@ -77,7 +81,6 @@ function SubscriptionDetailsPage() {
   const randomTea = getRandomImage()
 
   return (
-    // console.log({subDetails})
     <div className='sub-detail-container'>
       <Link to={'/'}>
       <aside>

@@ -45,7 +45,7 @@ function LandingPage() {
         <input className='searchbar'
           placeholder="Search List..."
           value={searchItem}
-          onChange={(e) => setSearchItem(e.target.value)}
+          onChange={(event) => setSearchItem(event.target.value)}
           style={{ float: 'right', margin: '10px' }}
         />
         </h2>
