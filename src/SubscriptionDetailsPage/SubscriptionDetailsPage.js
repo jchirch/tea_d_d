@@ -77,6 +77,10 @@ function SubscriptionDetailsPage() {
         ) : (
           <p>Loading Customer Info...</p>
         )}
+        <div className='button-row'>
+        <button className='activate'>Activate Subscription</button>
+        <button className='deactivate'>Cancel Subscription</button>
+        </div>
       </div>
     </div>
   );

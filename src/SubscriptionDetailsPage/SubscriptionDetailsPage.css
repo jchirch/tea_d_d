@@ -21,6 +21,25 @@ h1{
   padding-right: 15%;
 }
 
+.button-row{
+  margin: 5vh;
+  padding: 5vh;
+}
+
+button:hover{
+  cursor: pointer;
+}
+
+.activate{
+  margin: 3vh;
+  background-color: #73e569;
+}
+
+.deactivate{
+  margin: 3vh;
+  background-color: #73e569;
+}
+
 .tea-details{
   height: 100vh;
   width: 70%;
