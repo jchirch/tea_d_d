@@ -61,6 +61,10 @@ aside {
   background: linear-gradient(to bottom, #86B0D2 0%, #DCE8F2 100%); */
 }
 
+aside:hover{
+  cursor: pointer;
+}
+
 img {
   border-radius: 5555px;
   object-fit: cover;
