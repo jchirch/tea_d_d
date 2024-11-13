@@ -17,9 +17,53 @@ const getRandomImage = () => {
   return teaPix[randomIndex];
 };
 
+
+
 function SubscriptionDetailsPage() {
   const { id } = useParams()
   const [subDetails, setSubDetails] = useState(null);
+
+  const activateSub = () => {
+    fetch(
+      `http://127.0.0.1:3000/api/v1/subscriptions/${id}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({ activestatus: true })
+      }
+    )
+    .then(response => response.json())
+    .then(data => {
+      setSubDetails(oldSubDetails => ({
+        ...oldSubDetails,
+        attributes: {
+          ...oldSubDetails.attributes,
+          activestatus: true
+        }
+      }));
+    })
+    .catch(error => console.error("Error updating subscription active status:", error));
+  }
+  
+  const deactivateSub = () => {
+    fetch(
+      `http://127.0.0.1:3000/api/v1/subscriptions/${id}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({ activestatus: false })
+      }
+    )
+    .then(response => response.json())
+    .then(data => {
+      setSubDetails(oldSubDetails => ({
+        ...oldSubDetails,
+        attributes: {
+          ...oldSubDetails.attributes,
+          activestatus: false
+        }
+      }));
+    })
+    .catch(error => console.error("Error updating subscription active status:", error));
+  }
 
   function getSubDetails() {
     fetch(
@@ -47,12 +91,14 @@ function SubscriptionDetailsPage() {
   return (
     // console.log({subDetails})
     <div className='sub-detail-container'>
+      <Link to={'/'}>
       <aside>
         <header className='landing-header'>
           <h1>Tea Digital Database</h1>
           <img src={logo} alt="logo of website"></img>
         </header>
       </aside>
+      </Link>
       <div className='tea-details'>
       <h1>Subscription Details</h1>
         {subDetails && subDetails.attributes ? (
@@ -63,8 +109,7 @@ function SubscriptionDetailsPage() {
               a tea that connoisseurs describe as: {subDetails.attributes.tea_details.description}. 
               For best results, brew for {subDetails.attributes.tea_details.brewtime} minutes at {subDetails.attributes.tea_details.temperature} degrees.</p>
             <p>Subscription Frequency: {subDetails.attributes.frequency}</p>
-            <p>Status: {subDetails.attributes.activestatus ? "Active" : "Inactive"}</p>
-          </>
+            <p>Status: {subDetails.attributes.activestatus ? "Active" : "Inactive"}</p>          </>
         ) : (
           <h1>Loading Teas...</h1>
         )}
@@ -78,8 +123,8 @@ function SubscriptionDetailsPage() {
           <p>Loading Customer Info...</p>
         )}
         <div className='button-row'>
-        <button className='activate'>Activate Subscription</button>
-        <button className='deactivate'>Cancel Subscription</button>
+        <button className='activate' onClick={activateSub}>Activate Subscription</button>
+        <button className='deactivate' onClick={deactivateSub}>Cancel Subscription</button>
         </div>
       </div>
     </div>
