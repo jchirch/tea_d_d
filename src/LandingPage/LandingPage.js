@@ -11,22 +11,18 @@ function LandingPage() {
       "http://127.0.0.1:3000/api/v1/subscriptions"
     )
       .then((response) => {
-        console.log("RESPONSE HERE:", response)
         if (!response.ok) {
           throw new Error("Failed to fetch Subscriptions");
         }
         return response.json();
       })
       .then((data) => {
-        console.log("WOW WE GOT DATA", data)
-        console.log("WOW WE GOT MOOORE DATA", data.data)
         setSubscriptions(data.data);
       })
       .catch((error) => {
         console.error("Error fetching subscriptions:", error)
       })
   }
-  console.log("LOOK HERE", subscriptions)
   useEffect(() => {
     getSubscriptions();
   }, []);
