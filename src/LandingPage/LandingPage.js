@@ -46,7 +46,6 @@ function LandingPage() {
           placeholder="Search List..."
           value={searchItem}
           onChange={(event) => setSearchItem(event.target.value)}
-          style={{ float: 'right', margin: '10px' }}
         />
         </h2>
         <ul className='sub-list'>
