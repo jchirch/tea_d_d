@@ -5,6 +5,11 @@
   align-items: flex-start;
 }
 
+.searchbar{
+  border-radius: 10px;
+  background-color: #bff7d5;
+}
+
 .sub-body {
   background-color: #a5e4eb;
   height: 100vh;

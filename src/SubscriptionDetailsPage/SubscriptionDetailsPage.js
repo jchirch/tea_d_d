@@ -28,42 +28,30 @@ function SubscriptionDetailsPage() {
       `http://127.0.0.1:3000/api/v1/subscriptions/${id}`,
       {
         method: "PATCH",
-        body: JSON.stringify({ activestatus: true })
+        body: JSON.stringify({ activestatus: true }),
       }
     )
-    .then(response => response.json())
-    .then(data => {
-      setSubDetails(oldSubDetails => ({
-        ...oldSubDetails,
-        attributes: {
-          ...oldSubDetails.attributes,
-          activestatus: true
-        }
-      }));
-    })
-    .catch(error => console.error("Error updating subscription active status:", error));
-  }
+      .then(response => response.json())
+      .then(updatedSubDetails => {
+        setSubDetails(updatedSubDetails.data); 
+      })
+      .catch(error => console.error("Error updating subscription active status:", error));
+  };
   
   const deactivateSub = () => {
     fetch(
       `http://127.0.0.1:3000/api/v1/subscriptions/${id}`,
       {
         method: "PATCH",
-        body: JSON.stringify({ activestatus: false })
+        body: JSON.stringify({ activestatus: false }),
       }
     )
-    .then(response => response.json())
-    .then(data => {
-      setSubDetails(oldSubDetails => ({
-        ...oldSubDetails,
-        attributes: {
-          ...oldSubDetails.attributes,
-          activestatus: false
-        }
-      }));
-    })
-    .catch(error => console.error("Error updating subscription active status:", error));
-  }
+      .then(response => response.json())
+      .then(updatedSubDetails => {
+        setSubDetails(updatedSubDetails.data);
+      })
+      .catch(error => console.error("Error updating subscription active status:", error));
+  };
 
   function getSubDetails() {
     fetch(
