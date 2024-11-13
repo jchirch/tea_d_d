@@ -2,6 +2,20 @@ import './SubscriptionDetailsPage.css'
 import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import logo from '../pix/TDD_logo.png';
+import t1 from '../tea_pix/chunkytea.png'
+import t2 from '../tea_pix/floraltea1.png'
+import t4 from '../tea_pix/greeeeentea.png'
+import t5 from '../tea_pix/loosepuer.png'
+import t6 from '../tea_pix/loosetea1.png'
+import t7 from '../tea_pix/teanhoney.png'
+import t8 from '../tea_pix/whatisthistea.png'
+
+const teaPix = [t1, t2, t4, t5, t6, t7, t8]
+
+const getRandomImage = () => {
+  const randomIndex = Math.floor(Math.random() * teaPix.length);
+  return teaPix[randomIndex];
+};
 
 function SubscriptionDetailsPage() {
   const { id } = useParams()
@@ -28,6 +42,8 @@ function SubscriptionDetailsPage() {
     getSubDetails()
   }, [id]);
 
+  const randomTea = getRandomImage()
+
   return (
     // console.log({subDetails})
     <div className='sub-detail-container'>
@@ -42,6 +58,7 @@ function SubscriptionDetailsPage() {
         {subDetails && subDetails.attributes ? (
           <>
             <h2>{subDetails.attributes.title}, ${subDetails.attributes.price}</h2>
+            <img className='tea-pic' src={randomTea} alt="A picture of loose tea"/>
             <p className='tea-info'>The {subDetails.attributes.title} subscription contains {subDetails.attributes.tea_details.title}, 
               a tea that connoisseurs describe as: {subDetails.attributes.tea_details.description}. 
               For best results, brew for {subDetails.attributes.tea_details.brewtime} minutes at {subDetails.attributes.tea_details.temperature} degrees.</p>
@@ -55,8 +72,7 @@ function SubscriptionDetailsPage() {
         {subDetails && subDetails.relationships && subDetails.relationships.customer ? (
           <div className='customer-details'>
             <h3>Customers on Subscription</h3>
-            <p>Customer ID: {subDetails.relationships.customer.data.id}</p>
-            {/* <p>Customer Name: {customerData.attributes.firstname}</p> */}
+            <p>{subDetails.attributes.customer_details.firstname} {subDetails.attributes.customer_details.lastname}, Customer ID: {subDetails.relationships.customer.data.id}</p>
           </div>
         ) : (
           <p>Loading Customer Info...</p>
