@@ -29,27 +29,41 @@ function SubscriptionDetailsPage() {
   }, [id]);
 
   return (
-    console.log("LOOKY HERE", {subDetails})
-    // <div className='sub-detail-container'>
-
-    //   <aside>
-    //     <header className='landing-header'>
-    //       <h1>Tea Digital Database</h1>
-    //       <img src={logo} alt="logo of website"></img>
-    //     </header>
-    //   </aside>
-    //   <h1>hiiiiiii you found it</h1>
-    //   <div className='tea-details'>
-    //     <h2>{subDetails}</h2>
-    //   </div>
-    // </div>
-
+    // console.log({subDetails})
+    <div className='sub-detail-container'>
+      <aside>
+        <header className='landing-header'>
+          <h1>Tea Digital Database</h1>
+          <img src={logo} alt="logo of website"></img>
+        </header>
+      </aside>
+      <div className='tea-details'>
+      <h1>Subscription Details</h1>
+        {subDetails && subDetails.attributes ? (
+          <>
+            <h2>{subDetails.attributes.title}, ${subDetails.attributes.price}</h2>
+            <p className='tea-info'>The {subDetails.attributes.title} subscription contains {subDetails.attributes.tea_details.title}, 
+              a tea that connoisseurs describe as: {subDetails.attributes.tea_details.description}. 
+              For best results, brew for {subDetails.attributes.tea_details.brewtime} minutes at {subDetails.attributes.tea_details.temperature} degrees.</p>
+            <p>Subscription Frequency: {subDetails.attributes.frequency}</p>
+            <p>Status: {subDetails.attributes.activestatus ? "Active" : "Inactive"}</p>
+          </>
+        ) : (
+          <h1>Loading Teas...</h1>
+        )}
+  
+        {subDetails && subDetails.relationships && subDetails.relationships.customer ? (
+          <div className='customer-details'>
+            <h3>Customers on Subscription</h3>
+            <p>Customer ID: {subDetails.relationships.customer.data.id}</p>
+            {/* <p>Customer Name: {customerData.attributes.firstname}</p> */}
+          </div>
+        ) : (
+          <p>Loading Customer Info...</p>
+        )}
+      </div>
+    </div>
   );
-
-
-
-
-
 }
 
 export default SubscriptionDetailsPage;
